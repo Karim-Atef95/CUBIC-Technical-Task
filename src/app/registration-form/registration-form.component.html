@@ -1,0 +1,94 @@
+<div class="container text-center">
+<form>
+    <!-- name -->
+    <div class="mb-3 text-center">
+      <label for="exampleName1" class="form-label"> <strong>{{"NAME" | translate}}</strong></label>
+      <input type="text" class="form-control" id="exampleInputName1" aria-describedby="nameHelp">
+    </div>
+    <!-- email -->
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label"> <strong>{{"EMAIL" | translate}}</strong> </label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">{{"NEVER_MAIL" | translate}}</div>
+      </div>
+    <!-- phone number -->
+    <div class="mb-3">
+        <label for="exampleInputPhoneNumber1" class="form-label"> <strong>{{ "PHONENUMBER" | translate }}</strong>  </label>
+        <input type="number" class="form-control" id="examplePhoneNumber1" aria-describedby="PhoneNumberHelp">
+        <div id="phoneNumberHelp" class="form-text">{{"NEVER_MOB" | translate}} </div>
+      </div>
+    <!-- Change Language to ar & en Button -->
+    <Button 
+    type="button" 
+    id="langbtn1" 
+    class="btn btn-danger mb-3 align-center" 
+    (click)="Clicked()" 
+    (click)="Trans()"
+    >
+    {{engtext?"Press here for English Language":"أضغط هنا للغة العربية"}}
+    </Button> 
+    <br> 
+    <!--  ngx drop file -->
+    <div class="center mb-3">
+    <ngx-file-drop 
+      [multiple]="true" 
+      [showBrowseBtn]="true" 
+      dropZoneLabel=" Drop Files Here (ألقي الملف هنا أو أنقر علي الزر)"
+      (onFileDrop)="Dropped($event)"
+      >
+      </ngx-file-drop>
+      <div class="upload-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <!-- <th>{{"UPLOAD FILE" | translate}}</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of files; let i=index">
+              <td><strong>{{item.relativePath}}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+      <!-- img upload -->
+
+      <input  style="display: none;" type="file" id="getFile"  (change)="onFileSelected($event)">
+      <button 
+      class="btn btn-success"
+      onclick="document.getElementById('getFile').click()"
+      >
+      {{"UPLOAD IMAGE" | translate}}
+    </button>
+    <div class="container justify-content-center">
+      <img  style="display: block;" [src]="url" class="img-responsive" width="200px">
+    </div>
+    </div>
+    <!-- Dropdown Menu -->
+    <div class="dropdown mb-3" [ngSwitch]>
+        <button 
+        class="btn btn-secondary dropdown-toggle"
+        type="button" 
+        data-bs-toggle="dropdown" 
+        aria-expanded="false">
+          {{"DROPDOWN" | translate}} 
+        </button>
+        <ul class="dropdown-menu">
+        <!-- merchants in english  -->
+        <div *ngIf="!this.engtext">
+          <li *ngFor="let merchant of merchantsData.result">
+            {{merchant.merchant_category}}
+          </li>
+        </div>
+         <!-- merchants in arabic  -->
+         <div *ngIf="this.engtext">
+          <li *ngFor="let merchant of merchantsData.result">
+            {{merchant.merchant_category_ar}}
+          </li>
+        </div>
+      </ul>
+    </div>
+    <!-- submit the form button -->
+    <button type="submit" class="btn btn-dark">{{"SUBMIT" | translate}}</button>
+  </form>
+</div>

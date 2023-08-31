@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+.dropdown-menu{
+    max-height:150px;
+    overflow-y: scroll;
+    cursor: pointer;   
+}
+
+ul>li:hover {
+    background-color: rgb(216, 212, 212);
+}
+
